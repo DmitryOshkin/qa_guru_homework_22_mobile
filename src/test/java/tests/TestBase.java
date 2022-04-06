@@ -9,6 +9,8 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 
+import java.util.Optional;
+
 import static com.codeborne.selenide.Selenide.closeWebDriver;
 import static com.codeborne.selenide.Selenide.open;
 import static com.codeborne.selenide.logevents.SelenideLogger.addListener;
@@ -18,15 +20,13 @@ import static helpers.DeviceSelection.getDeviceDriver;
 
 public class TestBase {
 
-    private static final String deviceHost = System.getProperty("deviceHost");
+    private static final String deviceHost = System.getProperty("deviceHost", "browserstack");
 
     @BeforeAll
     public static void setup() {
         addListener("AllureSelenide", new AllureSelenide());
 
         Configuration.browser = getDeviceDriver(deviceHost);
-//        Configuration.browser = BrowserstackMobileDriver.class.getName();
-//        Configuration.browser = EmulatorMobileDriver.class.getName();
         Configuration.browserSize = null;
     }
 
